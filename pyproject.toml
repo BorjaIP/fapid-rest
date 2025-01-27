@@ -1,0 +1,62 @@
+[build-system]
+requires = ["hatchling", "hatch-requirements-txt"]
+build-backend = "hatchling.build"
+
+[project]
+name = "fapid-rest"
+dynamic = ["version", "dependencies"]
+description = ''
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = []
+authors = [{ name = "BorjaIP", email = "borja.irpe@gmail.com" }]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Programming Language :: Python",
+  "Programming Language :: Python :: 3.8",
+  "Programming Language :: Python :: 3.9",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: Implementation :: CPython",
+  "Programming Language :: Python :: Implementation :: PyPy",
+]
+
+[project.urls]
+Documentation = "https://github.com/BorjaIP/fapid-rest#readme"
+Issues = "https://github.com/BorjaIP/fapid-rest/issues"
+Source = "https://github.com/BorjaIP/fapid-rest"
+
+[tool.hatch.version]
+path = "fapid_rest/__init__.py"
+
+[tool.hatch.envs.default]
+python = "3.11"
+installer = "uv"
+path = "./.venv"
+dependencies = ["uv", "hatch-requirements-txt"]
+
+[tool.hatch.metadata.hooks.requirements_txt]
+files = ["requirements/requirements.txt"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["fapid_rest"]
+
+[tool.hatch.envs.types]
+extra-dependencies = ["mypy>=1.0.0"]
+[tool.hatch.envs.types.scripts]
+check = "mypy --install-types --non-interactive {args:src/fapid_rest tests}"
+
+[tool.coverage.run]
+source_pkgs = ["fapid_rest", "tests"]
+branch = true
+parallel = true
+omit = ["src/fapid_rest/__about__.py"]
+
+[tool.coverage.paths]
+fapid_rest = ["src/fapid_rest", "*/fapid_rest/src/fapid_rest"]
+tests = ["tests", "*/fapid_rest/tests"]
+
+[tool.coverage.report]
+exclude_lines = ["no cov", "if __name__ == .__main__.:", "if TYPE_CHECKING:"]

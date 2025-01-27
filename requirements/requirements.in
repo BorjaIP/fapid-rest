@@ -1,0 +1,6 @@
+fastapi==0.115.7
+pydantic-settings==2.7.1
+sqlmodel==0.0.22
+passlib==1.7.4
+uvicorn==0.34.0
+pydantic[email]==2.10.6
