@@ -8,9 +8,9 @@ Fapid Rest provides a structured starting point for building production-ready RE
 
 # Features
 
-🏗️ Clean Architecture with SVC pattern
-📁 Organized folder structure
-👤 User management example
-📊 Request/Response validation using Pydantic
-🎯 Dependency injection ready
-📝 OpenAPI (Swagger) documentation
+- 🏗️ Clean Architecture with SVC pattern
+- 📁 Organized folder structure
+- 👤 User management example
+- 📊 Request/Response validation using Pydantic
+- 🎯 Dependency injection ready
+- 📝 OpenAPI (Swagger) documentation
