@@ -25,7 +25,3 @@ class UserCreate(UserBase):
 class UserResponse(UserBase):
     id: uuid.UUID
     created_at: datetime
-
-
-class UserName(SQLModel):
-    username: str | None = Field(default=None, max_length=255)

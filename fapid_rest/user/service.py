@@ -1,11 +1,11 @@
-from typing import List, Optional
+from typing import List
 
 from pydantic import UUID4
 from sqlalchemy import delete
 from sqlmodel import Session, col, select
 
 from fapid_rest.security.hashes import get_password_hash
-from fapid_rest.user.models import User, UserCreate, UserName
+from fapid_rest.user.models import User, UserCreate
 
 
 class UserService:
@@ -24,8 +24,12 @@ class UserService:
         return user
 
     def get_user_by_name(self, *, db_session: Session, username: str) -> User | None:
-        # user = UserName(username=username)
         statement = select(User).where(col(User.username) == username)
+        user = db_session.exec(statement).first()
+        return user
+
+    def get_user_by_email(self, *, db_session: Session, user_email: str) -> User | None:
+        statement = select(User).where(col(User.email) == user_email)
         user = db_session.exec(statement).first()
         return user
 
