@@ -5,7 +5,7 @@ from sqlalchemy import delete
 from sqlmodel import Session, col, select
 
 from fapid_rest.security.hashes import get_password_hash
-from fapid_rest.user.models import User, UserCreate
+from fapid_rest.user.models import User, UserCreate, UserUpdate
 
 
 class UserService:
@@ -37,6 +37,16 @@ class UserService:
         statement = select(User)
         users = db_session.exec(statement).all()
         return users  # type: ignore
+
+    def update_user(
+        self, *, db_session: Session, user_update: UserUpdate, user: User
+    ) -> User | None:
+        user_sata = user_update.model_dump(exclude_unset=True)
+        user.sqlmodel_update(user_sata)
+        db_session.add(user)
+        db_session.commit()
+        db_session.refresh(user)
+        return user
 
     def delete_user(self, *, db_session: Session, user_id: UUID4):
         statement = delete(User).where(col(User.id) == user_id)

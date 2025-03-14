@@ -5,7 +5,7 @@ from pydantic import UUID4
 
 from fapid_rest.common.models.base import Message
 from fapid_rest.database.session import DBsession
-from fapid_rest.user.models import UserCreate, UserResponse
+from fapid_rest.user.models import UserCreate, UserResponse, UserUpdate
 from fapid_rest.user.service import UserService
 
 router = APIRouter(prefix="/users", tags=["users"])
@@ -50,6 +50,23 @@ def get_user(user_id: UUID4, db_session: DBsession, service: UserService = Depen
 def get_all_users(db_session: DBsession, service: UserService = Depends(UserService)):
     users = service.get_all_users(db_session=db_session)
     return users
+
+
+@router.patch("/{user_id}", response_model=UserResponse)
+def update_user(
+    user_id: UUID4,
+    user_update: UserUpdate,
+    db_session: DBsession,
+    service: UserService = Depends(UserService),
+):
+    user = service.get_user(db_session=db_session, user_id=user_id)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail=f"User {user_id} not found"
+        )
+
+    user = service.update_user(db_session=db_session, user_update=user_update, user=user)
+    return user
 
 
 @router.delete("/{user_id}", response_model=Message)

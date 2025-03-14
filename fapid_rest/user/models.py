@@ -1,5 +1,6 @@
 import uuid
 from datetime import datetime
+from typing import Optional
 
 from pydantic import EmailStr
 from sqlmodel import Field, SQLModel
@@ -20,6 +21,11 @@ class User(BaseModel, UserBase, table=True):
 
 class UserCreate(UserBase):
     password: str = Field(min_length=8, max_length=40)
+
+
+class UserUpdate(SQLModel):
+    email: Optional[str] = None
+    username: Optional[str] = None
 
 
 class UserResponse(UserBase):
