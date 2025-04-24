@@ -2,6 +2,7 @@
 
 A minimal, flexible and pragmatic **FastAPI** template to kickstart REST API development. Designed for **prototyping, PoCs**, internal tools, and dev utilities — with a strong foundation but without unnecessary complexity.
 
+> [!Note]
 > ⚠️ If you need something more robust for large-scale, production-ready services with full DDD, CQRS, or event-driven architectures — consider other templates.  
 > `fapid-rest` is made for speed, clarity, and developer happiness 🚀
 
