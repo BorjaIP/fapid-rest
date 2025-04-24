@@ -43,6 +43,12 @@ files = ["requirements/requirements.txt"]
 [tool.hatch.build.targets.wheel]
 packages = ["fapid_rest"]
 
+[tool.hatch.envs.default.scripts]
+dev = "uvicorn fapid_rest.main:app --reload"
+lint = "ruff check fapid_rest"
+fix = "ruff check fapid_rest --fix"
+test = "pytest tests"
+
 [tool.hatch.envs.types]
 extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]

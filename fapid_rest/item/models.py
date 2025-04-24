@@ -1,34 +1,32 @@
 import uuid
+from datetime import datetime
 
 from sqlmodel import Field, Relationship, SQLModel
 
 from fapid_rest.common.models.base import BaseModel
 
 
-class Item(BaseModel, table=True):
-    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+class ItemBase(SQLModel):
     title: str = Field(min_length=1, max_length=255)
     description: str | None = Field(default=None, max_length=255)
-    # owner_id: uuid.UUID = Field(foreign_key="user.id", nullable=False, ondelete="CASCADE")
-    # owner: User | None = Relationship(back_populates="items")
 
 
-# Properties to receive on item creation
+class Item(ItemBase, BaseModel, table=True):
+    id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
+    owner_id: uuid.UUID = Field(foreign_key="user.id", nullable=False, ondelete="CASCADE")
+    user: "User" = Relationship(back_populates="items")  # type: ignore
+
+
 class ItemCreate(ItemBase):
-    pass
+    owner_id: uuid.UUID
+ 
+
+# class ItemUpdate(ItemBase):
+#     title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
 
 
-# Properties to receive on item update
-class ItemUpdate(ItemBase):
-    title: str | None = Field(default=None, min_length=1, max_length=255)  # type: ignore
-
-
-# Properties to return via API, id is always required
-class ItemPublic(ItemBase):
+class ItemResponse(ItemBase):
     id: uuid.UUID
     owner_id: uuid.UUID
-
-
-class ItemsPublic(SQLModel):
-    data: list[ItemPublic]
-    count: int
+    created_at: datetime
+    updated_at: datetime

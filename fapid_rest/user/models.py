@@ -1,9 +1,9 @@
 import uuid
 from datetime import datetime
-from typing import Optional
+from typing import List, Optional
 
 from pydantic import EmailStr
-from sqlmodel import Field, SQLModel
+from sqlmodel import Field, Relationship, SQLModel
 
 from fapid_rest.common.models.base import BaseModel
 
@@ -17,6 +17,7 @@ class UserBase(SQLModel):
 class User(BaseModel, UserBase, table=True):
     id: uuid.UUID = Field(default_factory=uuid.uuid4, primary_key=True)
     hashed_password: str
+    items: List["Item"] | None = Relationship(back_populates="user")  # type: ignore
 
 
 class UserCreate(UserBase):
@@ -31,3 +32,4 @@ class UserUpdate(SQLModel):
 class UserResponse(UserBase):
     id: uuid.UUID
     created_at: datetime
+    updated_at: datetime
