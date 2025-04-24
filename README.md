@@ -29,13 +29,13 @@ Perfect when you want to start lean but keep your codebase clean.
 ## ✨ Features
 
 - 🧱 **Clean and simple MCS architecture**
-- 🗂️ Predefined folder structure by **Domain**: `app/user`, `app/item`
+- 🗂️ Predefined folder structure by **Domain**: `fapid_rest/user`, `fapid_rest/item`
 - 🐳 Dockerized for local dev and deploy
 - 🧪 Basic test setup with `pytest`
-- 🧹 Linting and formatting via `ruff`
-- 📦 Dependency management with `pip-tools`
-- ⚡️ Powered by **uv** for fast Python execution
-- 🐣 Project management with `hatch`
+- 🧹 Linting and formatting via [ruff](https://docs.astral.sh/ruff/)
+- 📦 Dependency management with [pip-tools](https://pip-tools.readthedocs.io/en/stable/)
+- ⚡️ Powered by [uv](https://docs.astral.sh/uv/) for fast Python execution
+- 🐣 Project management with [hatch](https://hatch.pypa.io/1.12/)
   
 ## 📦 Installation (Recommended with `pipx`)
 
